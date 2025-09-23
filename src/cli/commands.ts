@@ -200,8 +200,15 @@ async function showContentDiff(change: DetectedChange): Promise<void> {
  */
 export async function init(
   targetPath: string,
-  syncServer?: string,
-  syncServerStorageId?: string
+  {
+    syncServer,
+    syncServerStorageId,
+    keyhive,
+  }: {
+    syncServer?: string;
+    syncServerStorageId?: string;
+    keyhive?: boolean;
+  }
 ): Promise<void> {
   const spinner = ora("Starting initialization...").start();
 
@@ -233,6 +240,7 @@ export async function init(
     const defaultStorageId =
       syncServerStorageId || "3760df37-a4c6-4f66-9ecd-732039a9385d";
     const config: DirectoryConfig = {
+      keyhive_enabled: !!keyhive,
       sync_server: defaultSyncServer,
       sync_server_storage_id: defaultStorageId,
       sync_enabled: true,
@@ -412,10 +420,10 @@ export async function sync(options: SyncOptions): Promise<void> {
             change.changeType === "local_only"
               ? chalk.green("📤")
               : change.changeType === "remote_only"
-              ? chalk.blue("📥")
-              : change.changeType === "both_changed"
-              ? chalk.yellow("⚠️")
-              : chalk.gray("➖");
+                ? chalk.blue("📥")
+                : change.changeType === "both_changed"
+                  ? chalk.yellow("⚠️")
+                  : chalk.gray("➖");
           console.log(`  ${typeIcon} ${change.path}`);
         }
         if (preview.changes.length > 10) {
@@ -437,8 +445,8 @@ export async function sync(options: SyncOptions): Promise<void> {
             move.confidence === "auto"
               ? chalk.green("Auto")
               : move.confidence === "prompt"
-              ? chalk.yellow("Prompt")
-              : chalk.red("Low");
+                ? chalk.yellow("Prompt")
+                : chalk.red("Low");
           console.log(`  🔄 ${move.fromPath} → ${move.toPath} (${confidence})`);
         }
         if (preview.moves.length > 5) {
@@ -572,10 +580,10 @@ export async function diff(
         change.changeType === "local_only"
           ? chalk.green("[LOCAL]")
           : change.changeType === "remote_only"
-          ? chalk.blue("[REMOTE]")
-          : change.changeType === "both_changed"
-          ? chalk.yellow("[CONFLICT]")
-          : chalk.gray("[NO CHANGE]");
+            ? chalk.blue("[REMOTE]")
+            : change.changeType === "both_changed"
+              ? chalk.yellow("[CONFLICT]")
+              : chalk.gray("[NO CHANGE]");
 
       console.log(`\n${typeLabel} ${change.path}`);
 
@@ -666,8 +674,8 @@ export async function status(): Promise<void> {
         timeSince < 60000
           ? `${Math.floor(timeSince / 1000)}s ago`
           : timeSince < 3600000
-          ? `${Math.floor(timeSince / 60000)}m ago`
-          : `${Math.floor(timeSince / 3600000)}h ago`;
+            ? `${Math.floor(timeSince / 60000)}m ago`
+            : `${Math.floor(timeSince / 3600000)}h ago`;
 
       console.log(`\n${chalk.bold("⏱️  Sync Timing:")}`);
       console.log(

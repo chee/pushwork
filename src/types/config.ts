@@ -49,6 +49,7 @@ export interface SyncSettings {
  * Per-directory configuration
  */
 export interface DirectoryConfig {
+  keyhive_enabled?: boolean;
   sync_server?: string;
   sync_server_storage_id?: string;
   sync_enabled: boolean;

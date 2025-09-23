@@ -1,9 +1,16 @@
-import { Repo, StorageId } from "@automerge/automerge-repo";
+import {
+  NetworkAdapter,
+  Repo,
+  RepoConfig,
+  StorageId,
+} from "@automerge/automerge-repo";
 import { NodeFSStorageAdapter } from "@automerge/automerge-repo-storage-nodefs";
-import { BrowserWebSocketClientAdapter } from "@automerge/automerge-repo-network-websocket";
+import { WebSocketClientAdapter } from "@automerge/automerge-repo-network-websocket";
 import * as path from "path";
 import chalk from "chalk";
 import { ConfigManager } from "../config";
+
+import { setupKeyhive } from "./keyhive";
 
 export interface RepoFactoryOptions {
   enableNetwork?: boolean;
@@ -24,7 +31,7 @@ export async function createRepo(
   const syncToolDir = path.join(workingDir, ".pushwork");
   const storage = new NodeFSStorageAdapter(path.join(syncToolDir, "automerge"));
 
-  const repoConfig: any = { storage };
+  const repoConfig: RepoConfig = { storage };
 
   // Determine network settings - options override config
   const enableNetwork = options.enableNetwork ?? true;
@@ -34,7 +41,14 @@ export async function createRepo(
 
   // Add network adapter only if explicitly enabled and sync server is configured
   if (enableNetwork && syncServer) {
-    const networkAdapter = new BrowserWebSocketClientAdapter(syncServer);
+    let networkAdapter: NetworkAdapter = new WebSocketClientAdapter(syncServer);
+
+    if (config.keyhive_enabled) {
+      const { keyhive, signer, adapter, peerId } =
+        await setupKeyhive(networkAdapter);
+      repoConfig.peerId = peerId;
+      networkAdapter = adapter;
+    }
     repoConfig.network = [networkAdapter];
     repoConfig.enableRemoteHeadsGossiping = true;
     console.log(chalk.gray(`  ✓ Network sync enabled: ${syncServer}`));

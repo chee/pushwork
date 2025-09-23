@@ -87,6 +87,7 @@ export class ConfigManager {
       }
 
       const content = await fs.readFile(configPath, "utf8");
+
       return JSON.parse(content) as DirectoryConfig;
     } catch (error) {
       console.warn(`Failed to load local config: ${error}`);
@@ -122,6 +123,7 @@ export class ConfigManager {
 
     // Create default configuration
     const defaultConfig: DirectoryConfig = {
+      keyhive_enabled: false,
       sync_enabled: true,
       sync_server_storage_id: "3760df37-a4c6-4f66-9ecd-732039a9385d",
       defaults: {
@@ -202,6 +204,10 @@ export class ConfigManager {
 
     if ("sync" in override && override.sync) {
       merged.sync = { ...merged.sync, ...override.sync };
+    }
+
+    if ("keyhive_enabled" in override && override.keyhive_enabled) {
+      merged.keyhive_enabled = override.keyhive_enabled;
     }
 
     return merged;

@@ -51,13 +51,15 @@ program
     "--sync-server-storage-id <id>",
     "Custom sync server storage ID (must be used with --sync-server)"
   )
+  .option("--keyhive", "Enable keyhive")
   .addHelpText(
     "after",
     `
 Examples:
   pushwork init ./my-folder
   pushwork init ./my-folder --sync-server ws://localhost:3030 --sync-server-storage-id 1d89eba7-f7a4-4e8e-80f2-5f4e2406f507
-  
+  pushwork init . --keyhive --sync-server wss://keyhive.sync.automerge.org --sync-server-storage-id a565270c-bf7c-4df9-a531-f6be1d3152f0
+
 Note: Custom sync server options must always be used together.`
   )
   .action(
@@ -86,7 +88,7 @@ Note: Custom sync server options must always be used together.`
         process.exit(1);
       }
 
-      await init(path, options.syncServer, options.syncServerStorageId);
+      await init(path, options);
     })
   );
 
@@ -112,7 +114,7 @@ Examples:
   pushwork clone automerge:abc123 ./my-clone
   pushwork clone automerge:abc123 ./my-clone --force
   pushwork clone automerge:abc123 ./my-clone --sync-server ws://localhost:3030 --sync-server-storage-id 1d89eba7-f7a4-4e8e-80f2-5f4e2406f507
-  
+
 Note: Custom sync server options must always be used together.`
   )
   .action(
@@ -254,7 +256,7 @@ program
 Examples:
   pushwork url           # Show URL for current directory
   pushwork url ./repo    # Show URL for specific directory
-  
+
 Note: This command outputs only the URL, making it useful for scripts.`
   )
   .action(
