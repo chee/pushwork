@@ -107,6 +107,7 @@ program
     "--sync-server-storage-id <id>",
     "Custom sync server storage ID (must be used with --sync-server)"
   )
+  .option("--keyhive", "Enable keyhive")
   .addHelpText(
     "after",
     `
@@ -144,6 +145,7 @@ Note: Custom sync server options must always be used together.`
       }
 
       await clone(url, path, {
+        keyhive: options.keyhive || false,
         force: options.force || false,
         dryRun: false,
         verbose: false,

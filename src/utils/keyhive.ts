@@ -1,4 +1,13 @@
-import { Archive, CiphertextStore, Keyhive, Signer } from "@keyhive/keyhive";
+import {
+  Archive,
+  CiphertextStore,
+  Keyhive,
+  Signer,
+  initFromBase64Wasm,
+} from "@keyhive/keyhive/slim";
+// @ts-expect-error
+import { wasmBase64 } from "@keyhive/keyhive/keyhive_wasm.base64.js";
+initFromBase64Wasm(wasmBase64);
 import {
   KeyhiveNetworkAdapter,
   peerIdFromSigner,

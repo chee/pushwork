@@ -86,6 +86,7 @@ export interface CommandOptions {
  * Init command specific options
  */
 export interface InitOptions extends CommandOptions {
+  keyhive?: boolean
   // No additional options needed - init creates a new sync directory
 }
 
@@ -94,6 +95,7 @@ export interface InitOptions extends CommandOptions {
  */
 export interface CloneOptions extends CommandOptions {
   force?: boolean; // Overwrite existing directory
+  keyhive?: boolean
   syncServer?: string; // Custom sync server URL
   syncServerStorageId?: string; // Custom sync server storage ID
 }
