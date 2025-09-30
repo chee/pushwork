@@ -8,9 +8,9 @@ import { NodeFSStorageAdapter } from "@automerge/automerge-repo-storage-nodefs";
 import { WebSocketClientAdapter } from "@automerge/automerge-repo-network-websocket";
 import * as path from "path";
 import chalk from "chalk";
-import { ConfigManager } from "../config";
+import { ConfigManager } from "../config/index.js";
 
-import { setupKeyhive } from "./keyhive";
+import { setupKeyhive } from "./keyhive.js";
 
 export interface RepoFactoryOptions {
   enableNetwork?: boolean;

@@ -3,8 +3,8 @@ import * as path from "path";
 import * as crypto from "crypto";
 import { glob } from "glob";
 import * as mimeTypes from "mime-types";
-import { FileSystemEntry, FileType } from "../types";
-import { isEnhancedTextFile } from "./mime-types";
+import { FileSystemEntry, FileType } from "../types/index.js";
+import { isEnhancedTextFile } from "./mime-types.js";
 
 /**
  * Check if a path exists
@@ -29,8 +29,8 @@ export async function getFileSystemEntry(
     const type = stats.isDirectory()
       ? FileType.DIRECTORY
       : (await isEnhancedTextFile(filePath))
-      ? FileType.TEXT
-      : FileType.BINARY;
+        ? FileType.TEXT
+        : FileType.BINARY;
 
     return {
       path: filePath,

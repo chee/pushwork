@@ -1,4 +1,4 @@
-import { calculateContentHash } from "./fs";
+import { calculateContentHash } from "./fs.js";
 
 /**
  * Content similarity calculation for move detection

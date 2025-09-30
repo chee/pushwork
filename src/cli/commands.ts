@@ -13,12 +13,12 @@ import {
   CheckoutOptions,
   DirectoryConfig,
   DirectoryDocument,
-} from "../types";
-import { SyncEngine } from "../core";
-import { DetectedChange } from "../core/change-detection";
-import { pathExists, ensureDirectoryExists } from "../utils";
-import { ConfigManager } from "../config";
-import { createRepo } from "../utils/repo-factory";
+} from "../types/index.js";
+import { SyncEngine } from "../core/index.js";
+import { DetectedChange } from "../core/change-detection.js";
+import { pathExists, ensureDirectoryExists } from "../utils/index.js";
+import { ConfigManager } from "../config/index.js";
+import { createRepo } from "../utils/repo-factory.js";
 
 /**
  * Shared context that commands can use

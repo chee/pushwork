@@ -1,2 +1,2 @@
 // CLI commands
-export * from "./commands";
+export * from "./commands.js";

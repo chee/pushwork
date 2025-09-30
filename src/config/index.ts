@@ -1,8 +1,8 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 import * as os from "os";
-import { GlobalConfig, DirectoryConfig } from "../types";
-import { pathExists, ensureDirectoryExists } from "../utils";
+import { GlobalConfig, DirectoryConfig } from "../types/index.js";
+import { pathExists, ensureDirectoryExists } from "../utils/index.js";
 
 /**
  * Configuration manager for pushwork

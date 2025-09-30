@@ -8,17 +8,17 @@ import {
   SnapshotDirectoryEntry,
   FileDocument,
   DirectoryDocument,
-} from "../types";
+} from "../types/index.js";
 import {
   readFileContent,
   getFileSystemEntry,
   listDirectory,
   getRelativePath,
   normalizePath,
-} from "../utils";
+} from "../utils/index.js";
 
 // Re-export ChangeType for other modules
-export { ChangeType } from "../types";
+export { ChangeType } from "../types/index.js";
 
 /**
  * Represents a detected change

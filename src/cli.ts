@@ -13,7 +13,7 @@ import {
   commit,
   url,
   debug,
-} from "./cli/commands";
+} from "./cli/commands.js";
 
 /**
  * Wrapper for command actions with consistent error handling

@@ -17,7 +17,7 @@ import {
   FileType,
   ChangeType,
   MoveCandidate,
-} from "../types";
+} from "../types/index.js";
 import {
   readFileContent,
   writeFileContent,
@@ -29,12 +29,12 @@ import {
   getRelativePath,
   getEnhancedMimeType,
   isEnhancedTextFile,
-} from "../utils";
-import { isContentEqual } from "../utils/content";
-import { waitForSync, getSyncServerStorageId } from "../utils/network-sync";
-import { SnapshotManager } from "./snapshot";
-import { ChangeDetector, DetectedChange } from "./change-detection";
-import { MoveDetector } from "./move-detection";
+} from "../utils/index.js";
+import { isContentEqual } from "../utils/content.js";
+import { waitForSync, getSyncServerStorageId } from "../utils/network-sync.js";
+import { SnapshotManager } from "./snapshot.js";
+import { ChangeDetector, DetectedChange } from "./change-detection.js";
+import { MoveDetector } from "./move-detection.js";
 
 /**
  * Bidirectional sync engine implementing two-phase sync
@@ -838,9 +838,8 @@ export class SyncEngine {
 
     // DISCOVERY: Check if directory already exists in parent on server
     try {
-      const parentHandle = await this.repo.find<DirectoryDocument>(
-        parentDirUrl
-      );
+      const parentHandle =
+        await this.repo.find<DirectoryDocument>(parentDirUrl);
       const parentDoc = await parentHandle.doc();
 
       if (parentDoc) {
@@ -1040,9 +1039,8 @@ export class SyncEngine {
       // Navigate through directories to find the parent directory
       for (let i = 0; i < pathParts.length - 1; i++) {
         const dirName = pathParts[i];
-        const dirHandle = await this.repo.find<DirectoryDocument>(
-          currentDirUrl
-        );
+        const dirHandle =
+          await this.repo.find<DirectoryDocument>(currentDirUrl);
         const dirDoc = await dirHandle.doc();
 
         if (!dirDoc) return null;
@@ -1058,9 +1056,8 @@ export class SyncEngine {
 
       // Now look for the file in the final directory
       const fileName = pathParts[pathParts.length - 1];
-      const finalDirHandle = await this.repo.find<DirectoryDocument>(
-        currentDirUrl
-      );
+      const finalDirHandle =
+        await this.repo.find<DirectoryDocument>(currentDirUrl);
       const finalDirDoc = await finalDirHandle.doc();
 
       if (!finalDirDoc) return null;

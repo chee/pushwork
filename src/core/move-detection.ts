@@ -3,9 +3,13 @@ import {
   MoveCandidate,
   FileType,
   SnapshotFileEntry,
-} from "../types";
-import { ContentSimilarity, readFileContent, getRelativePath } from "../utils";
-import { DetectedChange, ChangeType } from "./change-detection";
+} from "../types/index.js";
+import {
+  ContentSimilarity,
+  readFileContent,
+  getRelativePath,
+} from "../utils/index.js";
+import { DetectedChange, ChangeType } from "./change-detection.js";
 
 /**
  * Move detection engine

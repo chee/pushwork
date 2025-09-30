@@ -1,8 +1,8 @@
 // Document types
-export * from "./documents";
+export * from "./documents.js";
 
 // Snapshot and sync types
-export * from "./snapshot";
+export * from "./snapshot.js";
 
 // Configuration types
-export * from "./config";
+export * from "./config.js";
