@@ -6,7 +6,7 @@
   "exports": {
     ".": "./dist/index.js"
   },
-"type": "module",
+  "type": "module",
   "bin": {
     "pushwork": "./dist/cli.js"
   },
@@ -39,12 +39,12 @@
   "license": "MIT",
   "dependencies": {
     "@automerge/automerge": "^3.0.0",
-    "@automerge/automerge-keyhive-network-adapter": "0.0.0-alpha.14",
-    "@automerge/automerge-repo": "^2.0.0",
+    "@automerge/automerge-repo": "2.4.0-alpha.2",
+    "@automerge/automerge-repo-keyhive": "0.0.0-alpha.65",
     "@automerge/automerge-repo-network-websocket": "^2.0.0",
     "@automerge/automerge-repo-storage-indexeddb": "^2.0.0",
     "@automerge/automerge-repo-storage-nodefs": "^2.0.0",
-    "@keyhive/keyhive": "0.0.0-alpha.6",
+    "@keyhive/keyhive": "0.0.0-alpha.39",
     "chalk": "^5.3.0",
     "commander": "^11.0.0",
     "diff": "^5.1.0",

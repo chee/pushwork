@@ -9,11 +9,14 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0
   '@automerge/automerge-keyhive-network-adapter':
-    specifier: 0.0.0-alpha.14
-    version: 0.0.0-alpha.14
+    specifier: 0.0.0-alpha.52
+    version: 0.0.0-alpha.52
   '@automerge/automerge-repo':
-    specifier: ^2.0.0
-    version: 2.1.0
+    specifier: 2.4.0-alpha.2
+    version: 2.4.0-alpha.2
+  '@automerge/automerge-repo-keyhive':
+    specifier: 0.0.0-alpha.65
+    version: 0.0.0-alpha.65
   '@automerge/automerge-repo-network-websocket':
     specifier: ^2.0.0
     version: 2.1.0
@@ -24,8 +27,8 @@ dependencies:
     specifier: ^2.0.0
     version: 2.1.0
   '@keyhive/keyhive':
-    specifier: 0.0.0-alpha.6
-    version: 0.0.0-alpha.6
+    specifier: 0.0.0-alpha.39
+    version: 0.0.0-alpha.39
   chalk:
     specifier: ^5.3.0
     version: 5.4.1
@@ -96,12 +99,26 @@ packages:
       '@jridgewell/trace-mapping': 0.3.29
     dev: true
 
-  /@automerge/automerge-keyhive-network-adapter@0.0.0-alpha.14:
-    resolution: {integrity: sha512-Oo2QzeXBQXUT5Y6p6PT2NGiKOpTg+S0+iC04QAXTgykYkuAQTv5Xw3Y/e9hy3j42GdP1VTyOfYypBXJSl6Y+Kw==}
+  /@automerge/automerge-keyhive-network-adapter@0.0.0-alpha.52:
+    resolution: {integrity: sha512-4SYj95I0/4P+7farYuIwo9RUcLX9H4d1Gwa8wia0MiFXanOy9xe68dkCEh+uGadNqpMtouiWq+UwC0qpG6ZL8A==}
     dependencies:
-      '@automerge/automerge-repo': 2.3.1
-      '@automerge/automerge-repo-network-websocket': 2.3.1
-      '@keyhive/keyhive': 0.0.0-alpha.6
+      '@automerge/automerge-repo': 2.4.0-alpha.2
+      '@automerge/automerge-repo-network-websocket': 2.4.0-alpha.2
+      '@keyhive/keyhive': 0.0.0-alpha.39
+      eventemitter3: 5.0.1
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@automerge/automerge-repo-keyhive@0.0.0-alpha.65:
+    resolution: {integrity: sha512-5t0ZEGHvgsNeJIcnfDJ9ccrHdFDkL8069JB72LKwy6I6gB/l+tLUCZ9MjobF0hTePZY458GDsMh48RbTzWYNOw==}
+    dependencies:
+      '@automerge/automerge-repo': 2.4.0-alpha.2
+      '@automerge/automerge-repo-network-websocket': 2.4.0-alpha.2
+      '@keyhive/keyhive': 0.0.0-alpha.39
+      eventemitter3: 5.0.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -123,10 +140,10 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@automerge/automerge-repo-network-websocket@2.3.1:
-    resolution: {integrity: sha512-imoxIIwd59exxU1zSHSKl+i25PgWn3Wvr6i948fcBDVXt7LkixK+wWMXMgbttjt/48YNbQRidSaKWzgzicYSKA==}
+  /@automerge/automerge-repo-network-websocket@2.4.0-alpha.2:
+    resolution: {integrity: sha512-HrC99iKdrp3ooA1xSs2nkSVbqvORrsmMSuYwkgibaHOsA6S6fUmJDVdDnsz+DX0wOrUcAfQu+IFmAfb13Ja7qQ==}
     dependencies:
-      '@automerge/automerge-repo': 2.3.1
+      '@automerge/automerge-repo': 2.4.0-alpha.2
       cbor-x: 1.6.0
       debug: 4.4.1
       eventemitter3: 5.0.1
@@ -185,8 +202,8 @@ packages:
       - supports-color
     dev: false
 
-  /@automerge/automerge-repo@2.3.1:
-    resolution: {integrity: sha512-ZQ6jdwSsdjAiQoT+1vAvmMRcXaxtMv4PH298x9VSVPD5o5N0nNUweE2HuAsNNrXleZ/apfG2vH8uYentSQQFvQ==}
+  /@automerge/automerge-repo@2.4.0-alpha.2:
+    resolution: {integrity: sha512-mXqM8865ZOF2QzidD22z9wwgg3eUF5El7iguYj6m2TXeXMYthditN3D/N93J/jumaM80DmC/u6QS6ScasxvIpw==}
     dependencies:
       '@automerge/automerge': 3.0.0
       bs58check: 3.0.1
@@ -895,8 +912,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.5.4
     dev: true
 
-  /@keyhive/keyhive@0.0.0-alpha.6:
-    resolution: {integrity: sha512-2dn8JlHXKms2n1wfRbkH9pSUN+1uhwKHZnvGP/z2yMyNSnQCH+foCjoV09H4hbq3nPhPhwciTPCDH+BWKKbYSQ==}
+  /@keyhive/keyhive@0.0.0-alpha.39:
+    resolution: {integrity: sha512-nkCfmeFp4ChHfvH3aKoutp9m41TtPqmqxQ458TohrUYbvdXcFNGXH8YczNRRczrzY/TJ+pQR8tgUgGELxUNLQg==}
     dev: false
 
   /@noble/hashes@1.8.0:

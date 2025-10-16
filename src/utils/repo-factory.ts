@@ -44,8 +44,10 @@ export async function createRepo(
     let networkAdapter: NetworkAdapter = new WebSocketClientAdapter(syncServer);
 
     if (config.keyhive_enabled) {
-      const { keyhive, signer, adapter, peerId } =
-        await setupKeyhive(networkAdapter);
+      const { keyhive, signer, adapter, peerId } = await setupKeyhive(
+        storage,
+        networkAdapter
+      );
       repoConfig.peerId = peerId;
       networkAdapter = adapter;
     }

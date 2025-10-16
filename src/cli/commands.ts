@@ -87,6 +87,7 @@ export async function safeRepoShutdown(
 ): Promise<void> {
   try {
     await repo.shutdown();
+    process.exit(0);
   } catch (shutdownError) {
     // WebSocket errors during shutdown are common and non-critical
     // Only warn about unexpected shutdown errors
@@ -104,6 +105,7 @@ export async function safeRepoShutdown(
         }: ${shutdownError}`
       );
     }
+    process.exit(2);
   }
 }
 
@@ -648,8 +650,8 @@ export async function status(): Promise<void> {
             timeSince < 60000
               ? `${Math.floor(timeSince / 1000)}s ago`
               : timeSince < 3600000
-              ? `${Math.floor(timeSince / 60000)}m ago`
-              : `${Math.floor(timeSince / 3600000)}h ago`;
+                ? `${Math.floor(timeSince / 60000)}m ago`
+                : `${Math.floor(timeSince / 3600000)}h ago`;
           console.log(
             `  🕒 Root last touched: ${chalk.green(
               lastSyncDate.toLocaleString()

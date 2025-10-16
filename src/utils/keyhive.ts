@@ -1,5 +1,4 @@
 import {
-  Archive,
   CiphertextStore,
   Keyhive,
   Signer,
@@ -8,13 +7,19 @@ import {
 // @ts-expect-error
 import { wasmBase64 } from "@keyhive/keyhive/keyhive_wasm.base64.js";
 initFromBase64Wasm(wasmBase64);
-import {
-  KeyhiveNetworkAdapter,
-  peerIdFromSigner,
-} from "@automerge/automerge-keyhive-network-adapter";
-import type { NetworkAdapter, PeerId } from "@automerge/automerge-repo/slim";
 
-export async function setupKeyhive(adapter: NetworkAdapter): Promise<{
+import { initializeKeyhive } from "@automerge/automerge-repo-keyhive";
+import type {
+  NetworkAdapter,
+  PeerId,
+  StorageAdapterInterface,
+} from "@automerge/automerge-repo/slim";
+import * as os from "node:os";
+
+export async function setupKeyhive(
+  storageAdapter: StorageAdapterInterface,
+  networkAdapter: NetworkAdapter
+): Promise<{
   adapter: NetworkAdapter;
   signer: Signer;
   keyhive: Keyhive;
@@ -23,7 +28,19 @@ export async function setupKeyhive(adapter: NetworkAdapter): Promise<{
   const signer = Signer.generateMemory();
   const store = CiphertextStore.newInMemory();
   const hive = await Keyhive.init(signer, store, console.info);
-  const wrapped = new KeyhiveNetworkAdapter(adapter, signer);
-  const peerId = peerIdFromSigner(signer);
-  return { adapter: wrapped, signer, keyhive: hive, peerId };
+  const hivekit = await initializeKeyhive({
+    storage: storageAdapter,
+    peerIdSuffix: `pushwork-${os.hostname}-${os.platform}-${Math.random()
+      .toString(32)
+      .slice(2)}`,
+    automaticArchiveIngestion: false,
+    networkAdapter: networkAdapter,
+  });
+
+  return {
+    adapter: hivekit.networkAdapter,
+    signer,
+    keyhive: hive,
+    peerId: hivekit.peerId,
+  };
 }
