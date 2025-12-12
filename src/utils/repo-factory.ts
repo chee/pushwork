@@ -60,6 +60,14 @@ export async function createRepo(
 
   const repo = new Repo(repoConfig);
 
+  // Wait for network adapter to be ready before subscribing (keyhive needs this)
+  if (enableNetwork && syncServer && config.keyhive_enabled) {
+    const adapter = repoConfig.network?.[0];
+    if (adapter && 'whenReady' in adapter) {
+      await adapter.whenReady();
+    }
+  }
+
   // Subscribe to the sync server storage for network sync
   if (enableNetwork && syncServer && syncServerStorageId) {
     repo.subscribeToRemotes([syncServerStorageId as StorageId]);
