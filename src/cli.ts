@@ -1,5 +1,34 @@
 #!/usr/bin/env node
 
+// Handle unhandled promise rejections to prevent crashes
+process.on('unhandledRejection', (reason, promise) => {
+  if (reason instanceof TypeError &&
+      reason.message?.includes('setSyncInfo')) {
+    return;
+  }
+  if (reason instanceof Error &&
+      reason.message?.includes('Websocket not ready')) {
+    return;
+  }
+  console.error('Unhandled Rejection:', reason);
+});
+
+// Suppress automerge-repo-keyhive logs
+const originalLog = console.log;
+const originalDebug = console.debug;
+
+console.log = (...args: unknown[]) => {
+  const msg = args[0];
+  if (typeof msg === 'string' && msg.includes('[AMRepoKeyhive]')) return;
+  originalLog(...args);
+};
+
+console.debug = (...args: unknown[]) => {
+  const msg = args[0];
+  if (typeof msg === 'string' && msg.includes('[AMRepoKeyhive]')) return;
+  originalDebug(...args);
+};
+
 import { Command } from "commander";
 import chalk from "chalk";
 import {
@@ -283,7 +312,7 @@ Examples:
   pushwork debug           # Show debug info for current directory
   pushwork debug --verbose # Show verbose debug info including full document contents
   pushwork debug ./repo    # Show debug info for specific directory
-  
+
 This command displays internal document state, including the lastSyncAt timestamp
 that gets updated when sync operations make changes.`
   )
@@ -297,6 +326,10 @@ that gets updated when sync operations make changes.`
 
 // Global error handler
 process.on("unhandledRejection", (reason, promise) => {
+  if (reason instanceof TypeError &&
+      (reason as TypeError).message?.includes('setSyncInfo')) {
+    return;
+  }
   console.error(
     chalk.red("Unhandled Rejection at:"),
     promise,

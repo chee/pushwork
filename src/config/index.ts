@@ -127,7 +127,7 @@ export class ConfigManager {
       sync_enabled: true,
       sync_server_storage_id: "3760df37-a4c6-4f66-9ecd-732039a9385d",
       defaults: {
-        exclude_patterns: [".git", "node_modules", "*.tmp", ".pushwork"],
+        exclude_patterns: [".git", "node_modules", "*.tmp", ".pushwork", ".DS_Store"],
         large_file_threshold: "100MB",
       },
       diff: {
