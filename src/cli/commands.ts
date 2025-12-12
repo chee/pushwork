@@ -38,7 +38,8 @@ export async function setupCommandContext(
   workingDir: string = process.cwd(),
   customSyncServer?: string,
   customStorageId?: string,
-  enableNetwork: boolean = true
+  enableNetwork: boolean = true,
+  verbose: boolean = false
 ): Promise<CommandContext> {
   const resolvedPath = path.resolve(workingDir);
 
@@ -67,7 +68,8 @@ export async function setupCommandContext(
     resolvedPath,
     config.defaults.exclude_patterns,
     enableNetwork,
-    config.sync_server_storage_id
+    config.sync_server_storage_id,
+    verbose
   );
 
   return {
@@ -207,12 +209,17 @@ export async function init(
     syncServer,
     syncServerStorageId,
     keyhive,
+    verbose,
   }: {
     syncServer?: string;
     syncServerStorageId?: string;
     keyhive?: boolean;
+    verbose?: boolean;
   }
 ): Promise<void> {
+  if (verbose) {
+    console.log("**Verbose mode enabled**");
+  }
   const spinner = ora("Starting initialization...").start();
 
   try {
@@ -292,7 +299,8 @@ export async function init(
       resolvedPath,
       config.defaults.exclude_patterns,
       true, // Network sync enabled for init
-      config.sync_server_storage_id
+      config.sync_server_storage_id,
+      verbose
     );
 
     // Get file count for progress
@@ -344,13 +352,22 @@ export async function init(
  * Run bidirectional sync
  */
 export async function sync(options: SyncOptions): Promise<void> {
+  if (options.verbose) {
+    console.log("**Verbose mode enabled**");
+  }
   const spinner = ora("Starting sync operation...").start();
 
   try {
     // Step 1: Setup shared context
     spinner.text = "Setting up sync context...";
     const { repo, syncEngine, config, workingDir } =
-      await setupCommandContext();
+      await setupCommandContext(
+        process.cwd(),
+        undefined,
+        undefined,
+        true,
+        options.verbose
+      );
 
     ProgressMessages.directoryFound();
     ProgressMessages.configLoaded();

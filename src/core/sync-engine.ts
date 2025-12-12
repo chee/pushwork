@@ -46,19 +46,22 @@ export class SyncEngine {
   private networkSyncEnabled: boolean = true;
   private handlesToWaitOn: DocHandle<unknown>[] = [];
   private syncServerStorageId?: string;
+  private verbose: boolean = false;
 
   constructor(
     private repo: Repo,
     private rootPath: string,
     excludePatterns: string[] = [],
     networkSyncEnabled: boolean = true,
-    syncServerStorageId?: string
+    syncServerStorageId?: string,
+    verbose: boolean = false
   ) {
     this.snapshotManager = new SnapshotManager(rootPath);
     this.changeDetector = new ChangeDetector(repo, rootPath, excludePatterns);
     this.moveDetector = new MoveDetector();
     this.networkSyncEnabled = networkSyncEnabled;
     this.syncServerStorageId = syncServerStorageId;
+    this.verbose = verbose;
   }
 
   /**
@@ -248,7 +251,9 @@ export class SyncEngine {
           if (this.handlesToWaitOn.length > 0) {
             await waitForSync(
               this.handlesToWaitOn,
-              getSyncServerStorageId(this.syncServerStorageId)
+              getSyncServerStorageId(this.syncServerStorageId),
+              60000,
+              this.verbose
             );
           }
         } catch (error) {
