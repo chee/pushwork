@@ -72,6 +72,7 @@ program
   .command("init")
   .description("Initialize sync in directory")
   .argument("<path>", "Directory path to initialize")
+  .option("-v, --verbose", "Verbose output")
   .option(
     "--sync-server <url>",
     "Custom sync server URL (must be used with --sync-server-storage-id)"

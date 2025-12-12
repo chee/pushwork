@@ -8,7 +8,8 @@ import * as A from "@automerge/automerge";
 export async function waitForSync(
   handlesToWaitOn: DocHandle<unknown>[],
   syncServerStorageId?: StorageId,
-  timeoutMs: number = 60000 // 60 second timeout for debugging
+  timeoutMs: number = 60000, // 60 second timeout for debugging
+  verbose: boolean = false
 ): Promise<void> {
   if (!syncServerStorageId) {
     console.warn(
@@ -21,9 +22,6 @@ export async function waitForSync(
     console.log("🔄 No documents to sync");
     return;
   }
-
-  // Debug logging only in verbose mode (can be controlled via env var later)
-  const verbose = false;
 
   if (verbose) {
     console.log(
