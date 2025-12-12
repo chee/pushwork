@@ -60,7 +60,7 @@ export async function createRepo(
 
   const repo = new Repo(repoConfig);
 
-  // Wait for network adapter to be ready before subscribing (keyhive needs this)
+  // Wait for network adapter to be ready before subscribing
   if (enableNetwork && syncServer && config.keyhive_enabled) {
     const adapter = repoConfig.network?.[0];
     if (adapter && 'whenReady' in adapter) {

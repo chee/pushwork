@@ -97,7 +97,8 @@ export async function safeRepoShutdown(
         : String(shutdownError);
     if (
       !errorMessage.includes("WebSocket") &&
-      !errorMessage.includes("connection was established")
+      !errorMessage.includes("connection was established") &&
+      !errorMessage.includes("DocHandle is not ready")
     ) {
       console.warn(
         `Warning: Repository shutdown failed${
@@ -247,7 +248,7 @@ export async function init(
       sync_server_storage_id: defaultStorageId,
       sync_enabled: true,
       defaults: {
-        exclude_patterns: [".git", "node_modules", "*.tmp", ".pushwork"],
+        exclude_patterns: [".git", "node_modules", "*.tmp", ".pushwork", ".DS_Store"],
         large_file_threshold: "100MB",
       },
       diff: {
@@ -904,7 +905,7 @@ export async function clone(
       sync_server_storage_id: defaultStorageId,
       sync_enabled: true,
       defaults: {
-        exclude_patterns: [".git", "node_modules", "*.tmp", ".pushwork"],
+        exclude_patterns: [".git", "node_modules", "*.tmp", ".pushwork", ".DS_Store"],
         large_file_threshold: "100MB",
       },
       diff: {
