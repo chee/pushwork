@@ -40,7 +40,7 @@
   "dependencies": {
     "@automerge/automerge": "^3.0.0",
     "@automerge/automerge-repo": "2.5.2-alpha.0",
-    "@automerge/automerge-repo-keyhive": "0.1.0-alpha.12",
+    "@automerge/automerge-repo-keyhive": "0.1.0-alpha.14",
     "@automerge/automerge-repo-network-websocket": "2.5.2-alpha.0",
     "@automerge/automerge-repo-storage-indexeddb": "2.5.2-alpha.0",
     "@automerge/automerge-repo-storage-nodefs": "2.5.2-alpha.0",

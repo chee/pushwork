@@ -1,4 +1,5 @@
 import {
+  AutomergeRepoKeyhive,
   initializeAutomergeRepoKeyhive,
   initKeyhiveWasm,
   Keyhive,
@@ -23,14 +24,9 @@ function ensureWasmInitialized(): void {
 export async function setupKeyhive(
   storageAdapter: StorageAdapterInterface,
   networkAdapter: NetworkAdapter
-): Promise<{
-  adapter: NetworkAdapter;
-  signer: Signer;
-  keyhive: Keyhive;
-  peerId: PeerId;
-}> {
+): Promise<AutomergeRepoKeyhive> {
   ensureWasmInitialized();
-  const hivekit = await initializeAutomergeRepoKeyhive({
+  return await initializeAutomergeRepoKeyhive({
     storage: storageAdapter,
     peerIdSuffix: `pushwork-${os.hostname}-${os.platform}-${Math.random()
       .toString(32)
@@ -39,11 +35,4 @@ export async function setupKeyhive(
     onlyShareWithHardcodedServerPeerId: false,
     networkAdapter: networkAdapter,
   });
-
-  return {
-    adapter: hivekit.networkAdapter,
-    signer: hivekit.active.signer,
-    keyhive: hivekit.keyhive,
-    peerId: hivekit.peerId,
-  };
 }

@@ -23,7 +23,7 @@ export async function waitForSync(
   }
 
   // Debug logging only in verbose mode (can be controlled via env var later)
-  const verbose = true;
+  const verbose = false;
 
   if (verbose) {
     console.log(
